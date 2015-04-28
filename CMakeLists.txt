@@ -15,18 +15,13 @@ generateCLP(CLP_XML Complex.xml)
 add_library(Mesh SHARED IMPORTED)
 
 IF(APPLE)
-	#message("IS THIS Mac OX??")
 	set_target_properties(Mesh PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libMesh.1.0.dylib)
 ELSE()
-	#message("IS THIS LINUX or WIN32??")
 	set_target_properties(Mesh PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libMesh.so.1.0)
 ENDIF(APPLE)	
 	
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# sources
-#set(SRC_FILES src/main.cpp)
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
 CONFIGURE_FILE(Cal_Complex_opt.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Cal_Complex_opt.x.cpp)
 CONFIGURE_FILE(surf_reg_model_left.obj template.obj COPYONLY)
