@@ -2,23 +2,27 @@ cmake_minimum_required (VERSION 2.8)
 project (Cal_Complexity)
 
 # GenerateCLP
-find_package(SlicerExecutionModel REQUIRED)
-include(${SlicerExecutionModel_USE_FILE})
-include(${GenerateCLP_USE_FILE})
+# find_package(SlicerExecutionModel REQUIRED)
+#include(${SlicerExecutionModel_USE_FILE})
+
+FIND_PACKAGE(GenerateCLP REQUIRED)
+IF(GenerateCLP_FOUND)
+	INCLUDE(${GenerateCLP_USE_FILE})
+ENDIF(GenerateCLP_FOUND)
 generateCLP(CLP_XML Complex.xml)
 
 # MESH library
 add_library(Mesh SHARED IMPORTED)
 
 IF(APPLE)
-	message("IS THIS Mac OX??")
-	set_target_properties(Mesh PROPERTIES IMPORTED_LOCATION ../src/lib/libMesh.1.0.dylib)
+	#message("IS THIS Mac OX??")
+	set_target_properties(Mesh PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libMesh.1.0.dylib)
 ELSE()
-	message("IS THIS LINUX or WIN32??")
-	set_target_properties(Mesh PROPERTIES IMPORTED_LOCATION ../src/lib/libMesh.so.1.0)
+	#message("IS THIS LINUX or WIN32??")
+	set_target_properties(Mesh PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libMesh.so.1.0)
 ENDIF(APPLE)	
 	
-include_directories(../src/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # sources
 #set(SRC_FILES src/main.cpp)
