@@ -15,7 +15,7 @@
 #include <Util/SurfaceUtil.h>
 #include "Geodesic/Geodesic.h"
 #include "Calculators.h"
-#include "ComplexCLP.h"
+#include "ShapeComplexityIndexCLP.h"
 
 
 #define BOOL bool
