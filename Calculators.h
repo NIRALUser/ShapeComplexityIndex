@@ -11,9 +11,24 @@
 #include <cmath>
 #include <vector>
 #include <fstream>
+#include <algorithm>
+
 //#include "transportSimplex.h"
 
 #define PI 3.14159265
+
+#ifndef __TEMP
+struct TEMP{
+	float a;
+  float b;
+	float c;
+	//float depth_value;
+	//BOOL valid;
+};
+#define __TEMP
+#endif
+
+
 
 class CCalculators
 {
@@ -38,7 +53,17 @@ public:
 	float Distance_TwoPoint(std::vector<float> pt1, std::vector<float> pt2);
 	float Cal_TRI(float edge1,float edge2,float edge3);
 
-
+	std::vector<int> Find_Candidate_nbr(Mesh* mesh, int current_point_index,int n_ring);
+	std::vector<int> cUNIQUE(std::vector<int> Matrix);
+		
+	std::vector< std::vector<int> > Extract_Patch_ReturnInputTri(int Vertex_Orig_ID, std::vector<int> Uniq_NBR, std::vector<int> Uniq_NBR_preStep, Mesh* mesh,int n_vertex, int nFace, int _N_nbr, std::vector<std::vector<int> > Face_LookupTable);
+	std::vector< std::vector<float> > Extract_Patch_ReturnInputCoord( std::vector<int> Uniq_NBR, Mesh* mesh );
+	int Extract_Patch_ReturnStartPoint(int Vertex_Orig_ID, std::vector<int> Uniq_NBR);
+		
+	std::vector<float> Cal_GeoDist(std::vector<  std::vector<int> > faces, std::vector<  std::vector<float> > vertex, int INIT_POINT_ID);
+	std::vector<float> dotp(TEMP* x1, TEMP* x2,int size);
+	std::vector<float> accumarray(std::vector<int> Index, std::vector<float> Val);
+	
 };
 
 #endif

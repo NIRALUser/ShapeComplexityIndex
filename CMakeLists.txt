@@ -7,6 +7,9 @@ IF(GenerateCLP_FOUND)
 ENDIF(GenerateCLP_FOUND)
 generateCLP(CLP_XML ShapeComplexityIndex.xml)
 
+#find_path(EIGEN3 Dense)
+#include_directories( ${EIGEN3} )
+
 # MESH library
 add_library(Mesh SHARED IMPORTED)
 
@@ -18,10 +21,12 @@ ENDIF(APPLE)
 	
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+#CONFIGURE_FILE(ShapeComplexityIndex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Cal_Complex_opt.x.cpp)
 
-CONFIGURE_FILE(ShapeComplexityIndex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Cal_Complex_opt.x.cpp)
 CONFIGURE_FILE(surf_reg_model_left.obj template.obj COPYONLY)
 
 # executable file
 add_executable(Cal_Complex Cal_Complex_opt.x.cpp Calculators.h Calculators.cpp transportSimplex.h ${CLP_XML})
 target_link_libraries(Cal_Complex Mesh)
+
+
